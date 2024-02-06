@@ -22,7 +22,7 @@ app.use('/api/product', productRouter);
 app.use('/api/order', orderRouter);
 
 app.get('/saludo', (req, res) => {
-    res.send('esto es una prueba');
+    res.send('esto es una prueba agregandop datos');
 });
 
 app.listen(env.port, () => console.log('Server Conected'));

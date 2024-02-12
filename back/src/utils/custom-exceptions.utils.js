@@ -18,3 +18,10 @@ export class OredrNotFound extends Error {
         this.name = this.constructor.name;
     };
 };
+
+export class ProviderNotFound extends Error {
+    constructor(message) {
+        super(message);
+        this.name = this.constructor.name;
+    };
+};

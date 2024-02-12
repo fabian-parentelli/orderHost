@@ -5,7 +5,7 @@ import mongoDB from './dao/mongo.js';
 import cors from 'cors';
 import env from './config/dotEnv.config.js';
 
-import { userRouter, productRouter, orderRouter } from './routes/index.routers.js';
+import { userRouter, productRouter, orderRouter, providerRouter } from './routes/index.routers.js';
 
 const app = express();
 mongoDB();
@@ -20,5 +20,6 @@ app.use(passport.initialize());
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
 app.use('/api/order', orderRouter);
+app.use('/api/provider', providerRouter);
 
 app.listen(env.port, () => console.log('Server Conected'));

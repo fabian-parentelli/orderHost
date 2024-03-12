@@ -8,5 +8,6 @@ export default class ProvidersRouter extends Router {
         this.get('/', ['ADMIN'], passportEnum.JWT, providerController.getAllProviders);
         this.get('/:id', ['ADMIN'], passportEnum.JWT, providerController.getProvById);  
         this.put('/', ['ADMIN'], passportEnum.JWT, providerController.updateProvider);  
+        this.put('/:id', ['ADMIN'], passportEnum.JWT, providerController.payProvider);  
     };
 };

@@ -42,4 +42,15 @@ const updateProvider = async (req, res) => {
     };
 };
 
-export { newProvider, getAllProviders, getProvById, updateProvider };
+const payProvider = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await providerService.payProvider(id, { ...req.body });
+        if (result) return res.sendSuccess(result);
+    } catch (error) {
+        if (error instanceof ProviderNotFound) return res.sendClientError(error.message);
+        res.sendServerError(error.message);
+    };
+};
+
+export { newProvider, getAllProviders, getProvById, updateProvider, payProvider };

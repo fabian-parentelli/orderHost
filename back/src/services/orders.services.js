@@ -6,6 +6,9 @@ import { orderRepository } from '../repositories/index.repositories.js';
 import { userRepository } from '../repositories/index.repositories.js';
 
 const saveOrder = async (order) => {
+
+    console.log(order);
+
     const newOrder = {
         cart: order.cart.map((prod) => ({
             product: prod._id,

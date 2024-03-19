@@ -14,6 +14,12 @@ const getAllNews = async () => {
     return { status: 'success', result };
 };
 
+const getIsActive = async () => {
+    const result = await newsRepository.getIsActive();
+    if (!result) return { status: 'error', error: 'No hay anuncios activos' }
+    return { status: 'success', result };
+};
+
 const updateActiveNews = async (id) => {
     const newsDb = await newsRepository.getNewsById(id);
     if (!newsDb) throw new NewsNotFound('No se encuentra el mensaje');
@@ -23,4 +29,4 @@ const updateActiveNews = async (id) => {
     return { status: 'success', result };
 };
 
-export { saveNews, getAllNews, updateActiveNews };
+export { saveNews, getAllNews, getIsActive, updateActiveNews };

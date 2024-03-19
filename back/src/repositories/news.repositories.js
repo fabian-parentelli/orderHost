@@ -17,6 +17,11 @@ export default class NewsRepository {
         return result;
     };
 
+    getIsActive = async () => {
+        const result = await newsManager.getIsActive();
+        return result;
+    };
+
     update = async (news) => {
         const result = await newsManager.update(news);
         return result;

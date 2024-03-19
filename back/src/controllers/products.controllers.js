@@ -47,6 +47,16 @@ const lookFor = async (req, res) => {
     };
 };
 
+const getSaleTrue = async (req, res) => {
+    try {
+        const result = await productsService.getSaleTrue();
+        if (result) return res.sendSuccess(result);
+    } catch (error) {
+        if (error instanceof ProductsNotFound) return res.sendClientError(error.message);
+        res.sendServerError(error.message);
+    };
+};
+
 const setActive = async (req, res) => {
     const { id } = req.params;
     try {
@@ -76,4 +86,31 @@ const updateProduct = async (req, res) => {
     };
 };
 
-export { createProduct, getAll, lookFor, setActive, getById, updateProduct };
+const updSale = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await productsService.updSale({ ...req.body }, id);
+        if (result) return res.sendSuccess(result);
+    } catch (error) {
+        if (error instanceof ProductsNotFound) return res.sendClientError(error.message);
+        res.sendServerError(error.message);
+    };
+};
+
+const updSaleActive = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await productsService.updSaleActive(id);
+        if (result) return res.sendSuccess(result);
+    } catch (error) {
+
+        console.log(error); // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+        if (error instanceof ProductsNotFound) return res.sendClientError(error.message);
+        res.sendServerError(error.message);
+    };
+};
+
+export {
+    createProduct, getAll, lookFor, getSaleTrue, setActive, getById, updateProduct, updSale, updSaleActive
+};

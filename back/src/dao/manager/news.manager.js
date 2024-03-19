@@ -14,6 +14,10 @@ export default class News {
         return await newsModel.findById(id).lean();
     };
 
+    getIsActive = async () => {
+        return await newsModel.findOne({ active: true }).lean();
+    };
+
     update = async (news) => {
         return await newsModel.findByIdAndUpdate({ _id: news._id }, news);
     };

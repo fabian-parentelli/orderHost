@@ -31,4 +31,9 @@ export default class ProductRepository {
         const result = await productManager.lookFor(name);
         return result;
     };
+
+    getSaleTrue = async () => {
+        const result = await productManager.getSaleTrue();
+        return result;
+    };
 };

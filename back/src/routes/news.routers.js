@@ -6,6 +6,7 @@ export default class NewsRouter extends Router {
     init() {
         this.post('/', ['ADMIN'], passportEnum.JWT, newsController.saveNews);
         this.get('/', ['PUBLIC'], passportEnum.NOTHING, newsController.getAllNews);
+        this.get('/isActive', ['PUBLIC'], passportEnum.NOTHING, newsController.getIsActive);
         this.put('/:id', ['ADMIN'], passportEnum.JWT, newsController.updateActiveNews);
     };
 };

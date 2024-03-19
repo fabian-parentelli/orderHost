@@ -28,4 +28,8 @@ export default class Product {
         };
         return await productModel.paginate(query, { limit: 10, page: 1, lean: true });
     };
+
+    getSaleTrue = async () => {
+        return await productModel.find({ 'sale.active': true });
+    };
 };

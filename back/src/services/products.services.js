@@ -37,6 +37,12 @@ const lookFor = async (name) => {
     return result;
 };
 
+const getSaleTrue = async () => {
+    const result = await productRepository.getSaleTrue();
+    if (!result) return { status: 'error', error: 'No hay ofertas activas' };
+    return { status: 'success', result };
+};
+
 const setActive = async (id) => {
     const product = await productRepository.getById(id);
     if (!product) throw new ProductsNotFound('Producto no encontrado');
@@ -57,4 +63,24 @@ const updateProduct = async (product, imgName, imgUrl, id) => {
     return { status: 'success', newProduct };
 };
 
-export { createProduct, getAll, lookFor, setActive, getById, updateProduct }; lookFor
+const updSale = async (sale, id) => {
+    const productDb = await productRepository.getById(id);
+    if (!productDb) throw new ProductsNotFound('no se encuentra el producto');
+    productDb.sale = sale;
+    const result = await productRepository.update(productDb);
+    if (!result) throw new ProductsNotFound('No se puede modificar el producto');
+    return { status: 'success', result };
+};
+
+const updSaleActive = async (id) => {
+    const productDb = await productRepository.getById(id);
+    if (!productDb) throw new ProductsNotFound('No se encuentre el producto');
+    productDb.sale.active = !productDb.sale.active;
+    const result = await productRepository.update(productDb);
+    if (!result) throw new ProductsNotFound('No se puede modificar el producto');
+    return { status: 'success', result };
+};
+
+export {
+    createProduct, getAll, lookFor, getSaleTrue, setActive, getById, updateProduct, updSale, updSaleActive
+}; 

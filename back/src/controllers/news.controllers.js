@@ -21,10 +21,9 @@ const getAllNews = async (req, res) => {
     };
 };
 
-const updateActiveNews = async (req, res) => {
-    const { id } = req.params;
+const getIsActive = async (req, res) => {
     try {
-        const result = await newsService.updateActiveNews(id);
+        const result = await newsService.getIsActive();
         if (result) return res.sendSuccess(result);
     } catch (error) {
 
@@ -35,4 +34,15 @@ const updateActiveNews = async (req, res) => {
     };
 };
 
-export { saveNews, getAllNews, updateActiveNews };
+const updateActiveNews = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await newsService.updateActiveNews(id);
+        if (result) return res.sendSuccess(result);
+    } catch (error) {
+        if (error instanceof NewsNotFound) return res.sendClientError(error.message);
+        res.sendServerError(error.message);
+    };
+};
+
+export { saveNews, getAllNews, getIsActive, updateActiveNews };

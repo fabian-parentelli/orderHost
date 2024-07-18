@@ -57,6 +57,16 @@ const getSaleTrue = async (req, res) => {
     };
 };
 
+const list = async (req, res) => {
+    try {
+        const result = await productsService.list();
+        if (result) return res.sendSuccess(result);
+    } catch (error) {
+        if (error instanceof ProductsNotFound) return res.sendClientError(error.message);
+        res.sendServerError(error.message);
+    };
+};
+
 const setActive = async (req, res) => {
     const { id } = req.params;
     try {
@@ -112,5 +122,6 @@ const updSaleActive = async (req, res) => {
 };
 
 export {
-    createProduct, getAll, lookFor, getSaleTrue, setActive, getById, updateProduct, updSale, updSaleActive
+    createProduct, getAll, lookFor, getSaleTrue, setActive, getById, updateProduct, updSale, updSaleActive,
+    list
 };

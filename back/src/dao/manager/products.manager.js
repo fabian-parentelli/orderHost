@@ -32,4 +32,8 @@ export default class Product {
     getSaleTrue = async () => {
         return await productModel.find({ 'sale.active': true });
     };
+
+    list = async () => {
+        return await productModel.find({ active: true });
+    };
 };

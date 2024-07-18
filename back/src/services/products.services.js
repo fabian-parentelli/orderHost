@@ -43,6 +43,12 @@ const getSaleTrue = async () => {
     return { status: 'success', result };
 };
 
+const list = async () => {
+    const result = await productRepository.list();
+    if (!result) return { status: 'error', error: 'No hay productos activos' };
+    return { status: 'success', result };
+};
+
 const setActive = async (id) => {
     const product = await productRepository.getById(id);
     if (!product) throw new ProductsNotFound('Producto no encontrado');
@@ -82,5 +88,6 @@ const updSaleActive = async (id) => {
 };
 
 export {
-    createProduct, getAll, lookFor, getSaleTrue, setActive, getById, updateProduct, updSale, updSaleActive
+    createProduct, getAll, lookFor, getSaleTrue, setActive, getById, updateProduct, updSale, updSaleActive,
+    list
 }; 

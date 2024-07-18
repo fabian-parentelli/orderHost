@@ -36,4 +36,9 @@ export default class ProductRepository {
         const result = await productManager.getSaleTrue();
         return result;
     };
+    
+    list = async () => {
+        const result = await productManager.list();
+        return result;
+    };
 };

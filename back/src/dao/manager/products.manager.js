@@ -35,8 +35,10 @@ export default class Product {
 
     list = async (limit = 10) => {
         return await productModel.aggregate([
+            { $match: { active: true } },
             { $group: { _id: "$category", products: { $push: "$$ROOT" } } },
             { $project: { _id: 0, category: "$_id", products: { $slice: ["$products", limit] } } }
         ]);
     };
+
 };

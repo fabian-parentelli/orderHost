@@ -33,7 +33,10 @@ export default class Product {
         return await productModel.find({ 'sale.active': true });
     };
 
-    list = async () => {
-        return await productModel.find({ active: true });
+    list = async (limit = 10) => {
+        return await productModel.aggregate([
+            { $group: { _id: "$category", products: { $push: "$$ROOT" } } },
+            { $project: { _id: 0, category: "$_id", products: { $slice: ["$products", limit] } } }
+        ]);
     };
 };

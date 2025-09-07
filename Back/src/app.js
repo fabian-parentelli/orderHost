@@ -6,7 +6,7 @@ import cors from 'cors';
 import env from './config/dotEnv.config.js';
 import {
     userRouter, configRouter, avatarRouter, productRouter, publicityRouter, 
-    orderRouter
+    orderRouter, messageRouter
 } from './routes/index.router.js';
 
 const app = express();
@@ -25,5 +25,6 @@ app.use('/api/avatar', avatarRouter);
 app.use('/api/product', productRouter);
 app.use('/api/publicity', publicityRouter);
 app.use('/api/order', orderRouter);
+app.use('/api/message', messageRouter);
 
 app.listen(env.port, () => console.log('Server conected'));

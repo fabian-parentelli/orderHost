@@ -11,10 +11,11 @@ const postProduct = async (body, imagesUrl) => {
 };
 
 const getProducts = async ({ page = 1, limit = 12, brand, id, category, subcategory, active,
-    notid, location, ids }) => {
+    notid, location, ids, select }) => {
 
     const query = {};
     const options = { page, limit };
+    if(select !== undefined) options.select = 'name brand description price unit';
 
     if (id) query._id = id;
     if (ids) query._id = { $in: ids.split(',') };
@@ -24,7 +25,6 @@ const getProducts = async ({ page = 1, limit = 12, brand, id, category, subcateg
     if (location) query.location = location;
     if (subcategory) query.subCategory = subcategory;
     if (active !== undefined) query.active = active;
-
     const result = await productRepository.getProducts(query, options);
     if (!result) throw new ProductNotFound('Error al traer los productos');
     return { status: 'success', result };

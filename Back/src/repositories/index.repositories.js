@@ -7,6 +7,7 @@ import ProductRepository from './product.repositories.js';
 import PublicityRepository from './publicity.repositories.js';
 import OrderRepository from './order.repositories.js';
 import MessageRepository from './message.repositories.js';
+import CustomerRepository from './customer.repositories.js';
 
 export const userRepository = new UserRepository();
 export const activityRepository = new ActivityRepository();
@@ -17,3 +18,4 @@ export const productRepository = new ProductRepository();
 export const publicityRepository = new PublicityRepository();
 export const orderRepository = new OrderRepository();
 export const messageRepository = new MessageRepository();
+export const customerRepository = new CustomerRepository();

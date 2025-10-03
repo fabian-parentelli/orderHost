@@ -24,4 +24,9 @@ export default class OrderRepository {
         return result;
     };
 
+    deleteOrder = async (id) => {
+        const result = await orderManager.deleteOrder(id);
+        return result;
+    };
+
 };

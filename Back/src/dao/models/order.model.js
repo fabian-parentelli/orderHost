@@ -15,6 +15,8 @@ const orderSchema = new mongoose.Schema({
     active: { type: Boolean, default: true },
     date: { type: Date, default: Date.now },
     status: { type: String, default: 'pending' },
+    day: { type: String },
+    type: { type: String },
 });
 
 orderSchema.plugin(mongoosePaginate);

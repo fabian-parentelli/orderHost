@@ -17,5 +17,8 @@ export default class Order {
     update = async (order) => {
         return await orderModel.findByIdAndUpdate(order._id, order, { lean: true, new: true });
     };
-    
+
+    deleteOrder = async (id) => {
+        return await orderModel.findByIdAndDelete(id);
+    };
 };

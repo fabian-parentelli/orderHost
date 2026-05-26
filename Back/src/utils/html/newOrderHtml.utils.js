@@ -164,7 +164,7 @@ export async function newOrderHtml(user, order) {
             )}</p>
 
         <p style="text-align:center;">
-          <a href="${env.APP_URL}" class="btn">Ir a la plataforma</a>
+          <a href="${env.frontUrl}" class="btn">Ir a la plataforma</a>
         </p>
 
         <p>Puedes seguir el estado de la orden en nuestra plataforma.</p>

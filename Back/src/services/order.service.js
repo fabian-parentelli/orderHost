@@ -2,9 +2,9 @@ import { orderRepository } from '../repositories/index.repositories.js';
 import { OrderNotFound } from '../utils/custom-exceptions.utils.js';
 import { newOrderHtml } from '../utils/html/newOrderHtml.utils.js';
 import { isCustomer } from '../utils/utilsServices/customer.utils.js';
-import { isUserUtils } from "../utils/utilsServices/users.utils.js";
-import { sendEmail } from './email.service.js';
 import { verifyRole } from '../utils/utilsServices/users.utils.js';
+import { validation } from '../validates/orders/order.val.js';
+import { sendEmail } from './email.service.js';
 
 const postSale = async (body) => {
     const { user, ...rest } = body;
@@ -14,11 +14,11 @@ const postSale = async (body) => {
     return { status: 'success' };
 };
 
-const postOrder = async (body) => {
-    const { user, ...rest } = body;
-    const isUser = await isUserUtils(user);
-    const result = await orderRepository.postOrder({ ...rest, userId: isUser.userId, type: 'order' });
+const postOrder = async (body, user) => {
+    const cart = validation.postOrder(body);
+    const result = await orderRepository.postOrder({ cart, userId: user._id, type: 'order' });
     if (!result) throw new OrderNotFound('Error al crear la orden');
+
     setImmediate(async () => {
         const emailTo = {
             to: user.email,
@@ -27,12 +27,8 @@ const postOrder = async (body) => {
         };
         await sendEmail(emailTo);
     });
-    return {
-        status: 'success',
-        result,
-        isUser: body.user._id ? true : false,
-        accesToken: isUser?.accesToken || null
-    };
+
+    return { status: 'success', result };
 };
 
 const getOrders = async ({ page = 1, userid, active, status, id }) => {

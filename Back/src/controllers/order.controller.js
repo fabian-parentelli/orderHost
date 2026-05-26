@@ -12,8 +12,9 @@ const postSale = async (req, res) => {
 };
 
 const postOrder = async (req, res) => {
+    const { user } = req.user;
     try {
-        const result = await orderService.postOrder({ ...req.body });
+        const result = await orderService.postOrder({ ...req.body }, user);
         if (result) return res.sendSuccess(result);
     } catch (error) {
         if (error instanceof OrderNotFound) return res.sendClientError(error.message);

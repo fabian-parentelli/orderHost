@@ -25,26 +25,4 @@ const userOrAdmin = async (result, activity, activityByAdmin, user, userDb) => {
     };
 };
 
-const isUserUtils = async (body) => {
-    if (body._id) {
-        const user = await userRepository.getById(body._id);
-        if (!user) throw new UserNotFound('Error, al traer el usuario');
-        if (body.name !== user.name || body.email !== user.email || body.phone !== user.phone ||
-            body.location.city !== user.location.city || body.location.address !== user.location.address) {
-            const result = await userRepository.update({ ...user, ...body });
-            if (!result) throw new UserNotFound('Error, al actualizar el usuario');
-            return { userId: body._id };
-        } else return { userId: body._id };
-    } else {
-        const isTehereUser = await userRepository.getByEmail(body.email);
-        if (isTehereUser) throw new UserNotFound('Ya existe un usuario con ese email');
-        body.password = createHash(body.password);
-        const result = await userRepository.register(body);
-        if (!result) throw new UserNotFound('Error, al crear el usuario');
-        delete body.password;
-        const accesToken = generateToken(result);
-        return { userId: result._id.toString(), accesToken };
-    };
-};
-
-export { verifyRole, userOrAdmin, isUserUtils };
+export { verifyRole, userOrAdmin };

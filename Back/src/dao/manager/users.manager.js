@@ -45,4 +45,8 @@ export default class User {
         return await userModel.findOne({ _id }, { password: 1, role: 1 });
     };
 
+    deleteById = async (_id) => {
+        return await userModel.deleteOne({ _id });
+    };
+
 };

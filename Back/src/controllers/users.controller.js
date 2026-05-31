@@ -133,7 +133,18 @@ const deleteAvatar = async (req, res) => {
     };
 };
 
+const deleteUser = async (req, res) => {
+    try {
+        const result = await userService.deleteUser({ ...req.params });
+        if (result) return res.sendSuccess(result);
+    } catch (error) {
+        if (error instanceof UserNotFound) return res.sendClientError(error.message);
+        res.sendServerError(error.message);
+    };
+};
+
 export {
     register, login, recoverPassword, current, interPass, getUsers, postUser,
-    newPassword, update, putAvatar, updateImg, deleteAvatar, getAutoComplete
+    newPassword, update, putAvatar, updateImg, deleteAvatar, getAutoComplete,
+    deleteUser
 };

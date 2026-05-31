@@ -19,5 +19,6 @@ export default class UserRouter extends Router {
         this.put('/avatar', ['USER', 'ADMIN', 'MASTER'], passportEnum.JWT, userController.putAvatar);
         this.put('/delete', ['USER', 'ADMIN', 'MASTER'], passportEnum.JWT, userController.deleteAvatar);
         this.put('/', ['USER', 'ADMIN', 'MASTER'], passportEnum.JWT, userController.update);
+        this.delete('/:id', ['MASTER'], passportEnum.JWT, userController.deleteUser);
     };
 };

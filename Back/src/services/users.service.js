@@ -164,7 +164,14 @@ const deleteAvatar = async (body, { user }) => {
     return await userOrAdmin(result, 'deleteAvatar', 'deleteAvatarFromAdmin', user, userDb);
 };
 
+const deleteUser = async ({ id }) => {
+    const result = await userRepository.deleteById(id);
+    if (!result) throw new UserNotFound(`Error al eliminar el usaurio ${id}`);
+    return { status: 'success' };
+};
+
 export {
     register, login, recoverPassword, current, interPass, getUsers, postUser,
-    newPassword, updateImg, putAvatar, update, deleteAvatar, getAutoComplete
+    newPassword, updateImg, putAvatar, update, deleteAvatar, getAutoComplete,
+    deleteUser
 };

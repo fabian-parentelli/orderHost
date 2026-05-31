@@ -46,5 +46,10 @@ export default class UserRepository {
         const result = await userManager.getForRole(id);
         return result;
     };
+    
+    deleteById = async (id) => {
+        const result = await userManager.deleteById(id);
+        return result;
+    };
 
 };
